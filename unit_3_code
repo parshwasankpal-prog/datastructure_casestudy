@@ -1,0 +1,63 @@
+
+print("Parshwa Ajit Sankpal SE-B-54")
+print("College Canteen Order Management using Queue and Linked List")
+
+class Node:
+    def __init__(self, order):
+        self.order = order
+        self.next = None
+
+
+class CanteenQueue:
+    def __init__(self):
+        self.front = None
+        self.rear = None
+
+    def add_order(self, order):
+        new_node = Node(order)
+
+        if self.rear is None:
+            self.front = new_node
+            self.rear = new_node
+        else:
+            self.rear.next = new_node
+            self.rear = new_node
+
+        print(order, "added to the queue")
+
+    def serve_order(self):
+        if self.front is None:
+            print("No orders available")
+        else:
+            print("Order served:", self.front.order)
+            self.front = self.front.next
+
+            if self.front is None:
+                self.rear = None
+
+    def display(self):
+        if self.front is None:
+            print("No pending orders")
+        else:
+            temp = self.front
+            print("Pending Orders:")
+
+            while temp is not None:
+                print(temp.order)
+                temp = temp.next
+
+
+canteen = CanteenQueue()
+
+canteen.add_order("Sandwich")
+canteen.add_order("Vada Pav")
+canteen.add_order("Misal Pav")
+
+print()
+canteen.display()
+
+print()
+canteen.serve_order()
+
+print()
+canteen.display()
