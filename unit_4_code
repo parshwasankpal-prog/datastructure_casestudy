@@ -1,0 +1,49 @@
+
+print("Parshwa Ajit Sankpal SE-B-54")
+print("Hospital Patient Record System using Hash Table")
+
+size = 10
+table = [[] for i in range(size)]
+
+def hash_function(patient_id):
+    return patient_id % size
+
+def add_patient(patient_id, name, age, disease):a
+    index = hash_function(patient_id)
+
+    for patient in table[index]:
+        if patient[0] == patient_id:
+            print("Patient ID already exists")
+            return
+
+    table[index].append((patient_id, name, age, disease))
+    print("Patient record added successfully")
+
+def search_patient(patient_id):
+    index = hash_function(patient_id)
+
+    for patient in table[index]:
+        if patient[0] == patient_id:
+            print("\nPatient Found")
+            print("Patient ID:", patient[0])
+            print("Name:", patient[1])
+            print("Age:", patient[2])
+            print("Disease:", patient[3])
+            return
+
+    print("Patient record not found")
+
+def display_patients():
+    print("\nHospital Patient Records")
+
+    for records in table:
+        for patient in records:
+            print(patient)
+
+add_patient(101, "Rahul", 25, "Fever")
+add_patient(112, "Amit", 40, "Diabetes")
+add_patient(123, "Sneha", 30, "Cold")
+
+search_patient(112)
+
+display_patients()
