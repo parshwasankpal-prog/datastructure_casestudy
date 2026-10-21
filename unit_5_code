@@ -1,0 +1,67 @@
+
+print("Parshwa Ajit Sankpla SE-B-54")
+print("Delivery Route Optimization using Dijkstra's Algorithm")
+
+graph = {
+    "Warehouse": {"A": 4, "B": 2},
+    "A": {"Warehouse": 4, "B": 1, "C": 5},
+    "B": {"Warehouse": 2, "A": 1, "C": 8, "D": 10},
+    "C": {"A": 5, "B": 8, "D": 2},
+    "D": {"B": 10, "C": 2}
+}
+
+start = "Warehouse"
+end = "D"
+
+distance = {}
+previous = []
+visited = []
+
+for place in graph:
+    distance[place] = float("inf")
+    previous.append(None)
+
+distance[start] = 0
+parent = {place: None for place in graph}
+
+while len(visited) < len(graph):
+    current = None
+    min_distance = float("inf")
+
+    for place in graph:
+        if place not in visited and distance[place] < min_distance:
+            min_distance = distance[place]
+            current = place
+
+    if current is None:
+        break
+
+    visited.append(current)
+
+    if current == end:
+        break
+
+    for neighbor, cost in graph[current].items():
+        new_distance = distance[current] + cost
+
+        if new_distance < distance[neighbor]:
+            distance[neighbor] = new_distance
+            parent[neighbor] = current
+
+if distance[end] == float("inf"):
+    print("No delivery route found")
+else:
+    route = []
+    current = end
+
+    while current is not None:
+        route.append(current)
+        current = parent[current]
+
+    route.reverse()
+
+    print("Delivery Route Optimization")
+    print("Warehouse:", start)
+    print("Delivery Location:", end)
+    print("Shortest Route:", " -> ".join(route))
+    print("Total Distance:", distance[end], "km")
