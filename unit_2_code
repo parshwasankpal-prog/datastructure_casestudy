@@ -1,40 +1,42 @@
-users = ["Manoj", "Kalpesh", "Amit", "Parshwa", "Raj"]
 
-matrix = [
-    [0, 1, 1, 0, 0],
-    [1, 0, 1, 1, 0],
-    [1, 1, 0, 0, 1],
-    [0, 1, 0, 0, 1],
-    [0, 0, 1, 1, 0]
+print("Parshwa Ajit Sankpal SE-B-54")
+# Public Transport Network using Adjacency Matrix
+
+bus_stops = ["Swargate", "Deccan", "Shivajinagar", "Kothrud", "Pune Station"]
+
+n = len(bus_stops)
+
+matrix = [[0 for j in range(n)] for i in range(n)]
+
+routes = [
+    (0, 1),
+    (0, 4),
+    (1, 2),
+    (1, 3),
+    (2, 4),
+    (3, 4)
 ]
 
-print("Social Media Friendship Network")
-print("--------------------------------")
+for a, b in routes:
+    matrix[a][b] = 1
+    matrix[b][a] = 1
 
-print("Users:", users)
+print("Public Transport Network - Adjacency Matrix\n")
 
-print("\nAdjacency Matrix:")
+print("     ", end="")
+for stop in bus_stops:
+    print(stop[:3], end="  ")
+print()
 
-print("      ", users)
+for i in range(n):
+    print(bus_stops[i][:3], end="    ")
+    for j in range(n):
+        print(matrix[i][j], end="    ")
+    print()
 
-for i in range(len(users)):
-    print(users[i], matrix[i])
+print("\nDirect Bus Connections:")
 
-name = input("\nEnter username to see friends: ")
-
-if name in users:
-    index = users.index(name)
-
-    print("\nFriends of", name, ":")
-
-    found = False
-
-    for j in range(len(users)):
-        if matrix[index][j] == 1:
-            print(users[j])
-            found = True
-
-    if not found:
-        print("No friends found.")
-else:
-    print("Username not found!")
+for i in range(n):
+    for j in range(i + 1, n):
+        if matrix[i][j] == 1:
+            print(bus_stops[i], "is connected to", bus_stops[j])
