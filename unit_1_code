@@ -1,0 +1,36 @@
+products = [
+    [101, "Laptop"],
+    [102, "Mobile"],
+    [103, "Headphones"],
+    [104, "Keyboard"],
+    [105, "Mouse"],
+    [106, "Smartwatch"]
+]
+
+def binary_search(products, product_id):
+    low = 0
+    high = len(products) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if products[mid][0] == product_id:
+            return products[mid]
+        elif products[mid][0] < product_id:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return None
+print("E-commerce Product List")
+print("-----------------------")
+
+for product in products:
+    print(product[0], "-", product[1])
+
+product_id = int(input("\nEnter Product ID to search: "))
+
+result = binary_search(products, product_id)
+if result:
+    print("\nProduct Found!")
+    print("Product ID:", result[0])
+    print("Product Name:", result[1])
+else:
+    print("\nProduct Not Found!")
