@@ -1,36 +1,41 @@
-products = [
-    [101, "Laptop"],
-    [102, "Mobile"],
-    [103, "Headphones"],
-    [104, "Keyboard"],
-    [105, "Mouse"],
-    [106, "Smartwatch"]
-]
+def merge_sort(students):
+    if len(students) <= 1:
+        return students
+    mid = len(students) 
+    left = merge_sort(students[:mid])
+    right = merge_sort(students[mid:])
+    return merge(left, right)
 
-def binary_search(products, product_id):
-    low = 0
-    high = len(products) - 1
-    while low <= high:
-        mid = (low + high) // 2
-        if products[mid][0] == product_id:
-            return products[mid]
-        elif products[mid][0] < product_id:
-            low = mid + 1
+def merge(left, right):
+    result = []
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        if left[i][2] <= right[j][2]:
+            result.append(left[i])
+            i += 1
         else:
-            high = mid - 1
-    return None
-print("E-commerce Product List")
-print("-----------------------")
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+n = int(input("Enter number of students: "))
+students = []
 
-for product in products:
-    print(product[0], "-", product[1])
+for i in range(n):
+    print(f"\nEnter details of student {i + 1}:")
+    roll = int(input("Enter roll number: "))
+    name = input("Enter student name: ")
+    marks = float(input("Enter marks: "))
 
-product_id = int(input("\nEnter Product ID to search: "))
+    students.append((roll, name, marks))
+sorted_students = merge_sort(students)
 
-result = binary_search(products, product_id)
-if result:
-    print("\nProduct Found!")
-    print("Product ID:", result[0])
-    print("Product Name:", result[1])
-else:
-    print("\nProduct Not Found!")
+print("\nSTUDENT MARKS SORTING SYSTEM")
+print("-" * 45)
+print(f"{'Roll No':<10}{'Name':<20}{'Marks':<10}")
+print("-" * 45)
+
+for roll, name, marks in sorted_students:
+    print(f"{roll:<10}{name:<20}{marks:<10.2f}")
