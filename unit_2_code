@@ -1,0 +1,40 @@
+users = ["Manoj", "Kalpesh", "Amit", "Parshwa", "Raj"]
+
+matrix = [
+    [0, 1, 1, 0, 0],
+    [1, 0, 1, 1, 0],
+    [1, 1, 0, 0, 1],
+    [0, 1, 0, 0, 1],
+    [0, 0, 1, 1, 0]
+]
+
+print("Social Media Friendship Network")
+print("--------------------------------")
+
+print("Users:", users)
+
+print("\nAdjacency Matrix:")
+
+print("      ", users)
+
+for i in range(len(users)):
+    print(users[i], matrix[i])
+
+name = input("\nEnter username to see friends: ")
+
+if name in users:
+    index = users.index(name)
+
+    print("\nFriends of", name, ":")
+
+    found = False
+
+    for j in range(len(users)):
+        if matrix[index][j] == 1:
+            print(users[j])
+            found = True
+
+    if not found:
+        print("No friends found.")
+else:
+    print("Username not found!")
